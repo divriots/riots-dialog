@@ -1,0 +1,41 @@
+body {
+  max-width: 80ch;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+}
+
+.modal-invoker {
+  display: block;
+  margin: var(--size-13) auto;
+}
+
+.knobs > div {
+  margin-top: var(--size-7);
+  text-align: center;
+}
+
+.knobs button {
+  margin: 0 auto;
+  display: block;
+}
+
+.knobs p {
+  display: inline-block;
+}
+
+form {
+  padding: var(--size-3);
+}
+
+label,
+input {
+  display: block;
+}
+
+input {
+  margin-top: var(--size-2);
+  margin-bottom: var(--size-4);
+}

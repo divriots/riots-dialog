@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Riots Dialog</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="demo.js" type="module"></script>
+  </head>
+  <body>
+    <h1>Riots Dialog</h1>
+    <div class="knobs">
+      <div class="pos-container">
+        <button data-pos-btn>Switch Position</button>
+        <p>Current position: <span id="curr-pos"></span></p>
+      </div>
+      <div class="is-modal-container">
+        <button data-is-modal-btn>Switch is-modal</button>
+        <p>Is modal: <span id="curr-is-modal"></span></p>
+      </div>
+      <div class="closes-outside-container">
+        <button data-closes-outside-btn>Switch closes on outside click</button>
+        <p>Closes on outside click: <span id="curr-closes-outside"></span></p>
+      </div>
+    </div>
+    <riots-dialog closes-on-outside-click id="modal">
+      <button class="modal-invoker" slot="invoker">Open Dialog</button>
+      <form slot="content" method="dialog">
+        <label>
+          First Name
+          <input type="text" name="first_name" />
+        </label>
+        <button type="submit" value="confirm">Confirm</button>
+        <button type="button" data-pos-btn>Switch Position</button>
+      </form>
+    </riots-dialog>
+  </body>
+</html>
