@@ -16,9 +16,13 @@ p {
   margin: 1rem 0;
 }
 
+.github-link {
+  font-size: 1.5rem;
+}
+
 .modal-invoker {
   display: block;
-  margin: var(--size-13) auto;
+  margin: var(--size-12) auto;
 }
 
 .knobs {
@@ -26,7 +30,7 @@ p {
 }
 
 .knobs__container p {
-  margin-bottom: var(--size-7);
+  margin-bottom: var(--size-5);
   text-align: center;
   max-inline-size: none;
 }
