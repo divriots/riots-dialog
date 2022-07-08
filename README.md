@@ -10,6 +10,8 @@
   </a>
 </p>
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/e2221cfc-fdeb-47b2-989a-7e02d4d48e3c/deploy-status)](https://app.netlify.com/sites/riots-dialog/deploys)
+
 Webcomponent using native dialog as locally anchored popover.
 
 [See the demo](https://riots-dialog.netlify.app/) for more information and how to use this.
