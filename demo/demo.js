@@ -1,17 +1,8 @@
-import styles from 'open-props/style' assert { type: 'css' };
-import normalize from 'open-props/normalize' assert { type: 'css' };
-import button from 'open-props/buttons' assert { type: 'css' };
-import '../dialog.js';
-
-document.adoptedStyleSheets = [
-  ...document.adoptedStyleSheets,
-  styles,
-  normalize,
-  button,
-];
+import '../src/define-dialog.js';
+import '../src/define-dialog-arrow.js';
 
 function getElementReferences(selectors) {
-  return selectors.map((sel) => document.querySelector(sel));
+  return selectors.map(sel => document.querySelector(sel));
 }
 
 const [
@@ -51,7 +42,7 @@ const placements = [
 
 const switchPosition = () => {
   const currentPosition = dialogEl.placement;
-  let newIndex = placements.findIndex((pos) => pos === currentPosition) + 1;
+  let newIndex = placements.findIndex(pos => pos === currentPosition) + 1;
   if (newIndex >= placements.length) {
     newIndex = 0;
   }
@@ -70,12 +61,12 @@ const switchClosesOutside = () => {
   closesOutsideCurrEl.innerText = dialogEl.closesOnOutsideClick;
 };
 
-const onDialogEvent = ({ target: dialogEl, type }) => {
-  console.log(type, dialogEl);
+const onDialogEvent = ({ target, type }) => {
+  console.log(type, target);
 };
 
 function setupDemoListeners() {
-  posBtnEls.forEach((btn) => {
+  posBtnEls.forEach(btn => {
     btn.addEventListener('click', switchPosition);
   });
 
@@ -88,7 +79,7 @@ function setupDemoListeners() {
     'dialog-closed',
     'dialog-opening',
     'dialog-opened',
-  ].forEach((ev) => {
+  ].forEach(ev => {
     dialogEl.addEventListener(ev, onDialogEvent);
   });
 }

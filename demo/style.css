@@ -1,10 +1,19 @@
 body {
   max-width: 80ch;
   margin: 0 auto;
+  padding: 2rem 0;
 }
 
 h1 {
   text-align: center;
+}
+
+h2 {
+  margin: 2rem 0;
+}
+
+p {
+  margin: 1rem 0;
 }
 
 .modal-invoker {
@@ -12,18 +21,19 @@ h1 {
   margin: var(--size-13) auto;
 }
 
-.knobs > div {
-  margin-top: var(--size-7);
-  text-align: center;
+.knobs {
+  margin-top: var(--size-10);
 }
 
-.knobs button {
+.knobs__container p {
+  margin-bottom: var(--size-7);
+  text-align: center;
+  max-inline-size: none;
+}
+
+.knobs__btn {
   margin: 0 auto;
   display: block;
-}
-
-.knobs p {
-  display: inline-block;
 }
 
 form {
@@ -38,4 +48,26 @@ input {
 input {
   margin-top: var(--size-2);
   margin-bottom: var(--size-4);
+}
+
+dialog {
+  border-radius: var(--radius-2);
+}
+
+li,
+p {
+  max-inline-size: none;
+}
+
+@media (prefers-color-scheme: light) {
+  html {
+    background-color: #eee;
+  }
+}
+
+pre[class*='language-'] {
+  box-shadow: none;
+  border: none;
+  width: 100%;
+  max-inline-size: none;
 }

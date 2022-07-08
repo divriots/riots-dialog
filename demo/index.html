@@ -5,26 +5,42 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Riots Dialog</title>
+    <script src="https://unpkg.com/prismjs@1.28.0/prism.js"></script>
+    <link rel="stylesheet" href="prism.css" />
     <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/open-props/open-props.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/open-props/normalize.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/open-props/buttons.min.css"
+    />
     <script src="demo.js" type="module"></script>
   </head>
   <body>
     <h1>Riots Dialog</h1>
     <div class="knobs">
-      <div class="pos-container">
-        <button data-pos-btn>Switch Position</button>
+      <div class="knobs__container pos-container">
+        <button class="knobs__btn" data-pos-btn>Switch Position</button>
         <p>Current position: <span id="curr-pos"></span></p>
       </div>
-      <div class="is-modal-container">
-        <button data-is-modal-btn>Switch is-modal</button>
+      <div class="knobs__container is-modal-container">
+        <button class="knobs__btn" data-is-modal-btn>Switch is-modal</button>
         <p>Is modal: <span id="curr-is-modal"></span></p>
       </div>
-      <div class="closes-outside-container">
-        <button data-closes-outside-btn>Switch closes on outside click</button>
+      <div class="knobs__container closes-outside-container">
+        <button class="knobs__btn" data-closes-outside-btn>
+          Switch closes on outside click
+        </button>
         <p>Closes on outside click: <span id="curr-closes-outside"></span></p>
       </div>
     </div>
-    <riots-dialog closes-on-outside-click id="modal">
+    <riots-dialog has-arrow closes-on-outside-click id="modal">
       <button class="modal-invoker" slot="invoker">Open Dialog</button>
       <form slot="content" method="dialog">
         <label>
@@ -33,7 +49,113 @@
         </label>
         <button type="submit" value="confirm">Confirm</button>
         <button type="button" data-pos-btn>Switch Position</button>
+        <riots-dialog-arrow riots-dialog-arrow></riots-dialog-arrow>
       </form>
     </riots-dialog>
+    <h2>Usage</h2>
+    <p>Install <code>@divriots/riots-dialog</code> using NPM (or use a CDN).</p>
+    <pre><code class="language-js">// CE definitions
+import '@divriots/riots-dialog/define';
+import '@divriots/riots-dialog/define-arrow';
+
+// Classes, e.g. for extending
+import { RiotsDialog, RiotsDialogArrow } from '@divriots/riots-dialog';</code></pre>
+    <pre><code class="language-html"><&zwj;riots-dialog has-arrow closes-on-outside-click id="modal">
+  <&zwj;button class="modal-invoker" slot="invoker">Open Dialog<&zwj;/button>
+  <&zwj;form slot="content" method="dialog">
+    <&zwj;label>
+      First Name
+      <&zwj;input type="text" name="first_name" />
+    <&zwj;/label>
+    <&zwj;button type="submit" value="confirm">Confirm<&zwj;/button>
+    <&zwj;button type="button" data-pos-btn>Switch Position<&zwj;/button>
+    <&zwj;riots-dialog-arrow riots-dialog-arrow><&zwj;/riots-dialog-arrow>
+  <&zwj;/form>
+<&zwj;/riots-dialog></code></pre>
+    <p>
+      I wanted to see if I can use the native <code>&lt;dialog&gt;</code> in
+      combination with <code>@floating-ui</code>, my main goal was
+      <b>a locally anchored popover that works like a dialog with backdrop</b>,
+      using the platform where possible.
+    </p>
+    <p>
+      I found out it wasn't so trivial to get all the features I wanted in it so
+      I built a wrapper webcomponent around it to give myself a nicer developer
+      experience.
+    </p>
+    <p>
+      <b>Disclaimer:</b> This is mostly a POC / experiment, so I recommend using
+      this as inspiration for your own project rather than directly
+      extending/consuming it. I have no tests right now and didn't cross-browser
+      test any of this. I have not done proper a11y audit yet, so unknown at the
+      moment how accessible this is, and it's debatable whether a dialog, even
+      if not modal, should be locally anchored/positioned at all. Types done
+      with JSDocs, linted/type declaration files created with TSC, so you're not
+      forced into a compile-step but can still use it in Typescript.
+    </p>
+    <p>
+      <b>Disclaimer 2:</b> opening a native dialog, with show or showModal,
+      seems to lock scrolling (although page does remain active). I haven't
+      found a way around that so this is not configurable at the moment, it
+      seems to happen on browser level at least on Chrome. This kind of goes
+      against my idea of using it as a locally anchored popover, but oh well.
+    </p>
+    <p>
+      Also, thanks to <a href="https://twitter.com/argyleink">@argyleink</a> for
+      <a href="https://open-props.style/">Open Props</a> which is what I used to
+      get some normalized default styles for this page.
+    </p>
+    <h2>Features</h2>
+    <p>
+      This list is not complete, my demo doesn't show all features and I plan to
+      expand with more features for easier customization like passing your own
+      <code>@floating-ui</code> middleware, but here's the most important
+      things:
+    </p>
+    <ul>
+      <li>
+        <code>opened</code> attribute opens the dialog, removing it closes it,
+        alternatively, use <code>.open()</code> or <code>.close()</code>
+      </li>
+      <li>
+        <code>placement</code> attribute changes the floating-ui placement
+        property
+      </li>
+      <li>
+        <code>is-modal</code> attribute makes it a modal dialog instead, this
+        makes page inert, adds a stylable backdrop, etc.
+      </li>
+      <li>
+        <code>prevent-invoker</code> attribute makes it so the
+        <code>invokerNode</code> doesn't actually open the dialog, in case you
+        want to handle this with JavaScript imperatively. The invokerNode in
+        this case is just the reference node.
+      </li>
+      <li>
+        <code>closes-on-outside-click</code> attribute makes it so that the
+        dialog closes on outside click. ESC key works by default.
+      </li>
+      <li>
+        listen to events <code>dialog-opening</code>,
+        <code>dialog-opened</code>, <code>dialog-closing</code>,
+        <code>dialog-closed</code>, which take into account
+        animations/transitions.
+      </li>
+      <li>
+        allow adding an arrow element to the content slot container. Enable this
+        feature by adding the attribute <code>has-arrow</code>, it will search
+        for an element with <code>riots-dialog-arrow</code> attribute. Ensure
+        you set a width and height property on this element, so we can position
+        it properly.
+      </li>
+      <li>
+        set <code>position-strategy</code> attribute to either
+        <code>absolute</code> (default) or <code>fixed</code> which sets the
+        <code>@floating-ui</code> positioning strategy.
+        <a href="https://floating-ui.com/docs/computePosition#strategy"
+          >See their docs about it</a
+        >.
+      </li>
+    </ul>
   </body>
 </html>
